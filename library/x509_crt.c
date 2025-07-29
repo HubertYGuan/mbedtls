@@ -23,6 +23,7 @@
 
 #include "mbedtls/x509_crt.h"
 #include "x509_internal.h"
+#include "mbedtls/x509_crt_private.h"
 #include "mbedtls/error.h"
 #include "mbedtls/oid.h"
 #include "mbedtls/platform_util.h"
@@ -2008,9 +2009,9 @@ int mbedtls_x509_crt_is_revoked(const mbedtls_x509_crt *crt, const mbedtls_x509_
  * Skip validation if no CRL for the given CA is present.
  */
 static int x509_crt_verifycrl(mbedtls_x509_crt *crt, mbedtls_x509_crt *ca,
-                              mbedtls_x509_crl *crl_list,
-                              const mbedtls_x509_crt_profile *profile,
-                              const mbedtls_x509_time *now)
+                       mbedtls_x509_crl *crl_list,
+                       const mbedtls_x509_crt_profile *profile,
+                       const mbedtls_x509_time *now)
 {
     int flags = 0;
     unsigned char hash[MBEDTLS_MD_MAX_SIZE];
@@ -2981,9 +2982,9 @@ static int x509_crt_check_san(const mbedtls_x509_sequence *san,
 /*
  * Verify the requested CN - only call this if cn is not NULL!
  */
-static void x509_crt_verify_name(const mbedtls_x509_crt *crt,
-                                 const char *cn,
-                                 uint32_t *flags)
+void x509_crt_verify_name(const mbedtls_x509_crt *crt,
+                          const char *cn,
+                          uint32_t *flags)
 {
     const mbedtls_x509_name *name;
     size_t cn_len = strlen(cn);
