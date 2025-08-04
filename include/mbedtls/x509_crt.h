@@ -341,6 +341,10 @@ extern const mbedtls_x509_crt_profile mbedtls_x509_crt_profile_suiteb;
  */
 extern const mbedtls_x509_crt_profile mbedtls_x509_crt_profile_none;
 
+void x509_crt_verify_name(const mbedtls_x509_crt *crt,
+                          const char *cn,
+                          uint32_t *flags);
+
 /**
  * \brief          Parse a single DER formatted certificate and add it
  *                 to the end of the provided chained list.
